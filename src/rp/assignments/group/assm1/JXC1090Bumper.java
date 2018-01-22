@@ -12,12 +12,12 @@ import rp.systems.ControllerWithTouchSensor;
  *
  */
 
-public class JackBumperController implements ControllerWithTouchSensor, TouchSensorListener {
+public class JXC1090Bumper implements ControllerWithTouchSensor, TouchSensorListener {
 	
 	private DifferentialPilot pilot;
 	private boolean running = false;
 	
-	public JackBumperController(DifferentialDriveRobot robot) {
+	public JXC1090Bumper(DifferentialDriveRobot robot) {
 		pilot = robot.getDifferentialPilot();
 	}
 
