@@ -6,23 +6,29 @@ import rp.robotics.DifferentialDriveRobot;
 import rp.robotics.TouchSensorEvent;
 import rp.systems.ControllerWithTouchSensor;
 
-public class AJB769Bumper implements ControllerWithTouchSensor{
+/**
+ * 
+ * @author ajb769
+ *
+ */
+public class AJB769Bumper implements ControllerWithTouchSensor {
 
 	private boolean m_run = false;
 	private DifferentialDriveRobot robot;
 	private DifferentialPilot pilot;
-	
+
 	public AJB769Bumper(DifferentialDriveRobot robot) {
 		this.robot = robot;
 		this.pilot = this.robot.getDifferentialPilot();
-		
+
 	}
 
 	@Override
 	public void run() {
 		m_run = true;
 		pilot.forward();
-		while(m_run) {}
+		while (m_run) {
+		}
 	}
 
 	@Override
