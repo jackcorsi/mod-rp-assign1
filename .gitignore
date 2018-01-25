@@ -1,5 +1,7 @@
 /bin/
+/doc/
 .*
 *.nxt
 *.nxj
 *.nxd
+
