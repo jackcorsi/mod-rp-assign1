@@ -1,0 +1,15 @@
+Simple:
+	Bump
+	Small turn
+	Go again
+
+Simple2:
+	Bump 
+	Turn angle dependent on time frame
+	Go again
+
+Advanced:
+	Sensor keep parallel to left wall
+	Bumper to turn until sensor parallel again
+
+
