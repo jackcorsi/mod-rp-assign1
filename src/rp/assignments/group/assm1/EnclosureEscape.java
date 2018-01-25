@@ -15,7 +15,7 @@ import rp.util.Rate;
  * 
  * @author afp766 / jxc1090
  * Controls Tayyab to escape an enclosure
- * Assumes proximity sensor on the left of the robot (port S2) and bumper at the front (port S3)
+ * Assumes proximity sensor on the left of the robot (port S2) and two bumpers at front (ports S1 and S4)
  */
 
 public class EnclosureEscape extends Thread implements SensorPortListener {
@@ -40,7 +40,8 @@ public class EnclosureEscape extends Thread implements SensorPortListener {
 	
 	public void run() {
 		DifferentialPilot pilot = (new WheeledRobotSystem(TAYYAB_CONFIG)).getPilot();
-		SensorPort.S3.addSensorPortListener(this);
+		SensorPort.S1.addSensorPortListener(this);
+		SensorPort.S4.addSensorPortListener(this);
 		Rate rate = new Rate(SLEEP_DURATION);
 		UltrasonicSensor proxSensor = new UltrasonicSensor(SensorPort.S2);
 		
@@ -74,8 +75,9 @@ public class EnclosureEscape extends Thread implements SensorPortListener {
 
 	@Override
 	public void stateChanged(SensorPort aSource, int aOldValue, int aNewValue) {
-		TouchSensor sensor = new TouchSensor(SensorPort.S3);
-		if (sensor.isPressed()) 
+		TouchSensor sensor1 = new TouchSensor(SensorPort.S1);
+		TouchSensor sensor2 = new TouchSensor(SensorPort.S4);
+		if (sensor1.isPressed() || sensor2.isPressed())  
 			shouldTurn = true;
 	}
 
