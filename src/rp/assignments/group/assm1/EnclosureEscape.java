@@ -11,18 +11,27 @@ import rp.config.WheeledRobotConfiguration;
 import rp.systems.WheeledRobotSystem;
 import rp.util.Rate;
 
+/**
+ * 
+ * @author afp766 / jxc1090
+ * Controls Tayyab to escape an enclosure
+ * Assumes proximity sensor on the left of the robot (port S2) and bumper at the front (port S3)
+ */
+
 public class EnclosureEscape extends Thread implements SensorPortListener {
 	
 	private static final WheeledRobotConfiguration TAYYAB_CONFIG = RobotConfigs.EXPRESS_BOT;
 	private static final int SLEEP_DURATION = 20;
 	private static final int RANGE = 20;
-	private static final int COURSE_ADJUST_ANGLE = 20;
+	private static final double COURSE_ADJUST_RATE = 20.0;
+	private static final double BUMP_ANGLE = -45.0;
 	
 	private boolean shouldTurn = false;
 
 	public static void main(String[] args) {
+		System.out.println("Enclosure escape!");
 		Button.waitForAnyPress();
-		Thread thread = new BumperProgram();
+		Thread thread = new EnclosureEscape();
 		thread.setDaemon(true); //Forces the thread to stop once the main method exits
 		thread.start();
 		Button.waitForAnyPress();
@@ -45,16 +54,18 @@ public class EnclosureEscape extends Thread implements SensorPortListener {
 				pilot.stop();
 				pilot.travel(-0.1);
 				
-				pilot.rotate(45.0);
+				pilot.rotate(BUMP_ANGLE);
 				
 				pilot.forward();
 				
 				shouldTurn = false;
 			}
 			if (proxSensor.getDistance() < RANGE) {
-				pilot.rotate(COURSE_ADJUST_ANGLE);
+				pilot.steer(-COURSE_ADJUST_RATE);
+				System.out.println("Turning right");
 			} else {
-				pilot.rotate(-COURSE_ADJUST_ANGLE);
+				pilot.steer(COURSE_ADJUST_RATE);
+				System.out.println("Turning left");
 			}
 			rate.sleep();
 		} 
