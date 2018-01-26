@@ -41,6 +41,7 @@ public class BumperProgram extends Thread implements SensorPortListener {
 	}
 	
 	/**
+	 * travels forward until it recieves a bumper event causing it to rotate and go back to moving forwards
 	 * Called by {@link main(String[])} via thread to be interrupted easily 
 	 */
 	public void run() {
