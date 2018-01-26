@@ -39,6 +39,7 @@ public class BumperProgram extends Thread implements SensorPortListener {
 		Button.waitForAnyPress();
 		thread.interrupt();
 	}
+	
 	/**
 	 * Called by {@link main(String[])} via thread to be interrupted easily 
 	 */
