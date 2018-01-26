@@ -41,12 +41,13 @@ public class BumperProgram extends Thread implements SensorPortListener {
 	}
 	
 	/**
-	 * travels forward until it recieves a bumper event causing it to rotate and go back to moving forwards
+	 * travels forward until it receives a bumper event causing it to rotate and go back to moving forwards
 	 * Called by {@link main(String[])} via thread to be interrupted easily 
 	 */
 	public void run() {
 		DifferentialPilot pilot = (new WheeledRobotSystem(TAYYAB_CONFIG)).getPilot();
-		SensorPort.S3.addSensorPortListener(this);
+		SensorPort.S1.addSensorPortListener(this);
+		SensorPort.S4.addSensorPortListener(this);
 		Rate rate = new Rate(SLEEP_DURATION);
 		pilot.forward();
 		
@@ -68,8 +69,9 @@ public class BumperProgram extends Thread implements SensorPortListener {
 	 */
 	@Override
 	public void stateChanged(SensorPort aSource, int aOldValue, int aNewValue) {
-		TouchSensor sensor = new TouchSensor(SensorPort.S3);
-		if (sensor.isPressed()) 
+		TouchSensor sensor1 = new TouchSensor(SensorPort.S1);
+		TouchSensor sensor2 = new TouchSensor(SensorPort.S4);
+		if (sensor1.isPressed() || sensor2.isPressed())  
 			shouldTurn = true;
 	}
 
